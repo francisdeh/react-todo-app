@@ -1,24 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { TodoLogo } from './components/TodoLogo';
+import { TodoForm } from './components/TodoForm';
+import { TodoListTable } from './components/TodoListTable';
+import { TodoEmptyView } from './components/TodoEmptyView';
+import { useState } from 'react';
+
+//props
 
 function App() {
+  // state to keep track of all todos
+  // [{id: 1, name: 'eat gob3', 'date': '12th Dec, 2023'}]
+  const [todos, setTodo] = useState([])
+
+  const handleAddTodo = (todo) => {
+    console.log("handling add todo", todo)
+    const newTodos = [...todos, todo]
+    setTodo(newTodos)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section>
+        <TodoLogo />
+        <TodoForm addTodo={handleAddTodo} />
+        <TodoListTable />
+        <TodoEmptyView />
+    </section>
   );
 }
 
