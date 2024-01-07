@@ -1,31 +1,23 @@
 import React, { useState } from 'react'
 
-export const TodoForm = ({addTodo}) => {
-    const [taskName, setTaskName] = useState('')
+export const TodoForm = ({ onCreate }) => {
+  const [taskName, setTaskName] = useState("")
 
-  const handleOnChange = (e) => setTaskName(e.target.value)
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault()
-
-    const todo = {
-        id: 1,
-        name: taskName,
-        date: new Date().toDateString()
-    }
-
-    addTodo(todo)
-    setTaskName("") 
+  const submitHandler = event => {
+    event.preventDefault()
+    onCreate(taskName)
+    setTaskName("")
   }
 
   return (
     <div>
-        <form id="task-form" onSubmit={handleOnSubmit}>
-            <input type="text" name="task-name" id="task-name-input" placeholder="Enter your task" value={taskName} required autoComplete="off" autoFocus  onChange={handleOnChange}/>
+        <form id="task-form" onSubmit={submitHandler}>
+            <input type="text" name="task-name" id="task-name-input" placeholder="Enter your task" value={taskName} required autoComplete="off" autoFocus 
+            onChange={event => setTaskName(event.target.value)} />
             <button type="submit" id="add-task-btn">
                 <i className="la la-plus"></i> Add Task
             </button>
-        </form>
-    </div>
+          </form>
+        </div>
   )
 }

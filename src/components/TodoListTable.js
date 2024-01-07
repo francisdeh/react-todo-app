@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const TodoListTable = () => {
+export const TodoListTable = ({ todos, onDelete }) => {
   return (
     <div className="table-div">
             <table>
@@ -13,27 +13,20 @@ export const TodoListTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Cook breakfast</td>
-                        <td>12th June, 2023</td>
-                        <td>
-                            <button className="delete-btn">
-                                <i className="la la-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Watch Movie</td>
-                        <td>12th June, 2023</td>
-                        <td>
-                            <button className="delete-btn">
-                                <i className="la la-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                  { todos.map(todo => {
+                    return (
+                    <tr key={todo.id}>
+                    <td>{todo.id}</td>
+                    <td>{todo.name}</td>
+                    <td>{todo.date}</td>
+                    <td>
+                        <button onClick={ () => onDelete(todo.id)} className="delete-btn">
+                            <i className="la la-trash"></i>
+                        </button>
+                    </td>
+                </tr>)
+                  }) }
+                
                 </tbody>
             </table>
         </div>
