@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TodoContext } from '../shared/todoContext'
 
-export const TodoListTable = ({ todos, onDelete }) => {
+export const TodoListTable = ({ onDelete, onComplete }) => {
+  let todos = useContext(TodoContext)
+
   return (
     <div className="table-div">
             <table>
@@ -15,13 +18,16 @@ export const TodoListTable = ({ todos, onDelete }) => {
                 <tbody>
                   { todos.map(todo => {
                     return (
-                    <tr key={todo.id}>
+                    <tr className={todo.isComplete ? 'is-completed' : ''} key={todo.id}>
                     <td>{todo.id}</td>
                     <td>{todo.name}</td>
                     <td>{todo.date}</td>
                     <td>
                         <button onClick={ () => onDelete(todo.id)} className="delete-btn">
                             <i className="la la-trash"></i>
+                        </button>
+                        <button onClick={ () => onComplete(todo.id)} className="complete-btn">
+                            <i className="la la-check-circle"></i>
                         </button>
                     </td>
                 </tr>)
